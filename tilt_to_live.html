@@ -229,27 +229,18 @@
 						dot.stroke('#000', 1);
 				}
 				
-				var finish = false;
 				var area = b().rect([width/2, height/2], [width, height]).fill('#fff').modify(baseModifier);
 				dot.on(C.X_MMOVE, function(evt) {
 						mouseX = evt.pos[0];
 						mouseY = evt.pos[1];
-					}).modify(playerModifier);
-				scene1.on(C.X_KPRESS, function(evt) {
+					}).on(C.X_KPRESS, function(evt) {
 						console.log(evt.key, evt.char);
 						if (over) {
-							//this.t = 0;
-							//reset();
-							finish = true;
+							this.t = 0;
+							reset();
 						}
-					}).on(C.X_DRAW, function() {
-                        if (finish && js_player) {
-                            finish = false;                 
-                            js_player.stop();
-                            js_player.play();
-                        }
-                    });				
-					
+					})
+					.modify(playerModifier);
 				scene1.add(area);
 				for (var i=0; i<swarm.length; i++)
 					swarm[i] = null;
@@ -258,7 +249,7 @@
 				scene1.add(scoreDisp);
 				msg.disable();
 				
-                var js_player = createPlayer('canvas1', {'mode': C.M_DYNAMIC}).load(scene1).play();
+                createPlayer('canvas1', {'mode': C.M_DYNAMIC}).load(scene1).play();
     
             }
         </script>
